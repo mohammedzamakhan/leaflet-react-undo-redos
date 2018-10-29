@@ -14,11 +14,11 @@ class Map extends Component {
     super(props);
     this.tempLayers = DEFAULT_TEMP;
     this.state = {
-      undoredo : {
+      undoredo: {
         undo: false,
         redo: false,
-      }
-    }
+      },
+    };
   }
   componentDidMount() {
     this.map = new L.Map(this.mapNode, {}).setView([51.505, -0.09], 22);
@@ -54,6 +54,14 @@ class Map extends Component {
       this.tempLayers = DEFAULT_TEMP;
       this.props.dispatch(updateRectangle(cloneDeep(e.workingLayer)));
       this.workinglayer.on("pm:vertexadded", e => {
+        if (this.state.tempLayers.past.length) {
+          this.setState({
+            undoredo: {
+              ...this.state.undoredo,
+              undo: true,
+            },
+          });
+        }
         if (this.tempLayers.present) {
           this.tempLayers.past.push(this.tempLayers.present);
         }
@@ -61,12 +69,6 @@ class Map extends Component {
           layer: cloneDeep(e.workingLayer),
           marker: cloneDeep(e.marker),
         };
-        this.setState({
-          undoredo: {
-            undo: true,
-            redo: false
-          }
-        })
       });
     });
   }
