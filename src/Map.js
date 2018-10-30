@@ -84,6 +84,10 @@ class Map extends Component {
 
   handleRedo = () => {};
 
+  handleButton = () => {
+    this.map.pm.enableDraw("Poly");
+  };
+
   render() {
     return [
       <div id="map" ref={ref => (this.mapNode = ref)} />,
@@ -93,6 +97,16 @@ class Map extends Component {
         onUndo={this.handleUndo}
         onRedo={this.handleRedo}
       />,
+      <button
+        onClick={this.handleButton}
+        style={{
+          position: "absolute",
+          zIndex: 1000,
+          bottom: 20,
+        }}
+      >
+        click
+      </button>,
     ];
   }
 }
