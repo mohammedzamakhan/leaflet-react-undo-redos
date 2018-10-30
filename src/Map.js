@@ -14,11 +14,11 @@ class Map extends Component {
     super(props);
     this.tempLayers = DEFAULT_TEMP;
     this.state = {
-      undoredo : {
+      undoredo: {
         undo: false,
         redo: false,
-      }
-    }
+      },
+    };
   }
   componentDidMount() {
     this.map = new L.Map(this.mapNode, {}).setView([51.505, -0.09], 22);
@@ -64,9 +64,9 @@ class Map extends Component {
         this.setState({
           undoredo: {
             undo: true,
-            redo: false
-          }
-        })
+            redo: false,
+          },
+        });
       });
     });
   }
@@ -82,6 +82,10 @@ class Map extends Component {
 
   handleRedo = () => {};
 
+  handleButton = () => {
+    this.map.pm.enableDraw("Poly");
+  };
+
   render() {
     return [
       <div id="map" ref={ref => (this.mapNode = ref)} />,
@@ -91,6 +95,16 @@ class Map extends Component {
         onUndo={this.handleUndo}
         onRedo={this.handleRedo}
       />,
+      <button
+        onClick={this.handleButton}
+        style={{
+          position: "absolute",
+          zIndex: 1000,
+          bottom: 20,
+        }}
+      >
+        click
+      </button>,
     ];
   }
 }
