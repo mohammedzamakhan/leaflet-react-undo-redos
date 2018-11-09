@@ -9,6 +9,8 @@ const DEFAULT_TEMP = {
   future: [],
 };
 
+
+
 class Map extends Component {
   constructor(props) {
     super(props);
