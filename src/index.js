@@ -10,7 +10,6 @@ const DEFAULT_TEMP = {
 };
 
 
-
 class Map extends Component {
   constructor(props) {
     super(props);
